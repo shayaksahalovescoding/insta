@@ -1,0 +1,1410 @@
+:root,
+.__fb-light-mode {
+  color-scheme: light;
+  --ig-primary-background: 255, 255, 255;
+  --ig-secondary-background: 243, 245, 247;
+  --ig-elevated-background: 255, 255, 255;
+  --ig-secondary-elevated-background: 240, 242, 245;
+  --ig-highlight-background: 243, 245, 247;
+  --ig-elevated-highlight-background: 239, 239, 239;
+  --ig-banner-background: 255, 255, 255;
+  --ig-menu-background-color: 248, 249, 249;
+  --ig-menu-text-color: 12, 16, 20;
+  --ig-dropdown-background: 243, 245, 247;
+  --ig-primary-text: 12, 16, 20;
+  --ig-secondary-text: 106, 113, 122;
+  --ig-tertiary-text: 199, 199, 199;
+  --ig-link: 0, 55, 107;
+  --ig-colors-link-text: 65, 80, 247;
+  --ig-colors-button-primary-link-text: 49, 67, 227;
+  --ig-primary-icon: 12, 16, 20;
+  --ig-secondary-icon: 142, 142, 142;
+  --ig-tertiary-icon: 199, 199, 199;
+  --ig-separator: 219, 223, 228;
+  --ig-elevated-separator: 219, 223, 228;
+  --ig-stroke: 219, 219, 219;
+  --ig-focus-stroke: 168, 168, 168;
+  --ig-tablist-border: 219, 223, 228;
+  --ig-tab-underline-active: 12, 16, 20;
+  --ig-primary-button: 74, 93, 249;
+  --ig-primary-button-hover: 65, 80, 247;
+  --ig-colors-button-primary-background--disabled: 184, 205, 255;
+  --ig-colors-button-secondary-background: 240, 242, 245;
+  --ig-colors-button-secondary-background--hover: 231, 234, 238;
+  --ig-colors-button-secondary-text: 12, 16, 20;
+  --ig-hover-overlay: 12, 16, 20, 0.05;
+  --ig-badge: 255, 48, 64;
+  --ig-error-or-destructive: 237, 73, 86;
+  --ig-success: 88, 195, 34;
+  --ig-strong-shadow: 0 4px 32px 0 rgba(11, 16, 20, 0.16);
+  --ig-popover-bg: rgba(248, 249, 249, 0.92);
+  --ig-popover-separator: rgba(219, 223, 228, 0.7);
+  --ig-modal-backdrop: rgba(12, 16, 20, 0.65);
+}
+
+.__fb-dark-mode {
+  color-scheme: dark;
+  --ig-primary-background: 12, 16, 20;
+  --ig-secondary-background: 37, 41, 46;
+  --ig-elevated-background: 33, 35, 40;
+  --ig-secondary-elevated-background: 43, 48, 54;
+  --ig-highlight-background: 38, 38, 38;
+  --ig-elevated-highlight-background: 54, 54, 54;
+  --ig-banner-background: 38, 38, 38;
+  --ig-menu-background-color: 38, 43, 49;
+  --ig-menu-text-color: 248, 249, 249;
+  --ig-dropdown-background: 37, 41, 46;
+  --ig-primary-text: 245, 245, 245;
+  --ig-secondary-text: 168, 168, 168;
+  --ig-tertiary-text: 115, 115, 115;
+  --ig-link: 224, 241, 255;
+  --ig-colors-link-text: 112, 141, 255;
+  --ig-colors-button-primary-link-text: 133, 161, 255;
+  --ig-primary-icon: 245, 245, 245;
+  --ig-secondary-icon: 142, 142, 142;
+  --ig-tertiary-icon: 115, 115, 115;
+  --ig-separator: 38, 38, 38;
+  --ig-elevated-separator: 54, 54, 54;
+  --ig-stroke: 85, 85, 85;
+  --ig-focus-stroke: 85, 85, 85;
+  --ig-tablist-border: 43, 48, 54;
+  --ig-tab-underline-active: 248, 249, 249;
+  --ig-primary-button: 74, 93, 249;
+  --ig-primary-button-hover: 65, 80, 247;
+  --ig-colors-button-primary-background--disabled: 24, 32, 139;
+  --ig-colors-button-secondary-background: 37, 41, 46;
+  --ig-colors-button-secondary-background--hover: 54, 60, 68;
+  --ig-colors-button-secondary-text: 255, 255, 255;
+  --ig-hover-overlay: 255, 255, 255, 0.1;
+  --ig-badge: 255, 48, 64;
+  --ig-error-or-destructive: 237, 73, 86;
+  --ig-success: 88, 195, 34;
+  --ig-strong-shadow: 0 4px 32px 0 rgba(11, 16, 20, 0.16);
+  --ig-popover-bg: rgba(43, 48, 54, 0.85);
+  --ig-popover-separator: rgba(85, 85, 85, 0.3);
+  --ig-modal-backdrop: rgba(12, 16, 20, 0.7);
+}
+
+:root {
+  --font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --nav-narrow-width: 72px;
+  --nav-expanded-width: 238px;
+  --feed-width: 470px;
+  --feed-wrapper-width: 630px;
+  --feed-sidebar-width: 319px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: rgb(var(--ig-primary-background));
+  color: rgb(var(--ig-primary-text));
+  font-family: var(--font-family-system);
+  font-size: 14px;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ==================== APP SHELL ==================== */
+.ig-shell {
+  min-height: 100vh;
+  display: flex;
+  background-color: rgb(var(--ig-primary-background));
+}
+
+.ig-rail-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--nav-narrow-width);
+  z-index: 30;
+}
+
+.ig-rail {
+  width: var(--nav-narrow-width);
+  height: 100vh;
+  padding: 24px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(var(--ig-primary-background));
+  transition: width 0.16s cubic-bezier(0.17, 0.17, 0, 1);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .ig-rail:hover,
+  .ig-rail.ig-rail-pinned {
+    width: var(--nav-expanded-width);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.ig-rail-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.ig-rail-logo {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+.ig-rail-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.ig-rail-item {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 12px;
+  margin: 4px 0;
+  border-radius: 8px;
+  gap: 16px;
+  white-space: nowrap;
+  transition: background-color 0.1s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.ig-rail-item:hover {
+  background-color: rgba(var(--ig-hover-overlay));
+}
+
+.ig-rail-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ig-rail-label {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  color: rgb(var(--ig-primary-text));
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+@media (min-width: 768px) {
+  .ig-rail:hover .ig-rail-label,
+  .ig-rail.ig-rail-pinned .ig-rail-label {
+    opacity: 1;
+  }
+}
+
+.ig-rail-item.is-active .ig-rail-label {
+  font-weight: 700;
+}
+
+.ig-rail-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.ig-rail-avatar-ring {
+  padding: 1px;
+  border: 2px solid rgb(var(--ig-primary-text));
+  border-radius: 50%;
+}
+
+/* More popover */
+.ig-more-popover {
+  position: fixed;
+  left: 12px;
+  bottom: 84px;
+  width: 266px;
+  padding: 8px 0;
+  border-radius: 20px;
+  background-color: var(--ig-popover-bg);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 48px 0 rgba(0, 0, 0, 0.18);
+  z-index: 60;
+}
+
+.ig-more-item {
+  width: calc(100% - 16px);
+  margin: 0 8px;
+  height: 50px;
+  padding: 0 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(var(--ig-primary-text));
+}
+
+.ig-more-item:hover {
+  background-color: rgba(var(--ig-hover-overlay));
+}
+
+.ig-more-separator {
+  height: 6px;
+  background-color: var(--ig-popover-separator);
+  margin: 8px 0;
+}
+
+/* Mobile Header & Bottom Tab Bar */
+.ig-mobile-header {
+  display: none;
+}
+
+.ig-mobile-bottom-nav {
+  display: none;
+}
+
+.ig-main {
+  flex: 1;
+  margin-left: var(--nav-narrow-width);
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .ig-rail-wrapper {
+    display: none;
+  }
+
+  .ig-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    height: 45px;
+    padding: 0 16px;
+    background-color: rgb(var(--ig-primary-background));
+    z-index: 25;
+  }
+
+  .ig-mobile-bottom-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+    background-color: rgb(var(--ig-primary-background));
+    border-top: 1px solid rgb(var(--ig-separator));
+    z-index: 30;
+  }
+
+  .ig-mobile-tab {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ig-shell {
+    flex-direction: column;
+  }
+
+  .ig-main {
+    margin-left: 0;
+    padding-bottom: 66px;
+  }
+}
+
+/* ==================== AVATAR FALLBACK ==================== */
+.ig-avatar-fallback {
+  border-radius: 50%;
+  background-color: rgb(var(--ig-secondary-background));
+  border: 1px solid rgb(var(--ig-separator));
+  color: rgb(var(--ig-secondary-text));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ig-avatar-img {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ==================== HOME FEED ==================== */
+.ig-feed-layout {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 1013px;
+  padding: 0 16px 48px;
+  gap: 64px;
+}
+
+.ig-feed-column {
+  width: 100%;
+  max-width: var(--feed-wrapper-width);
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ig-post-stream {
+  width: 100%;
+  max-width: var(--feed-width);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ig-right-sidebar {
+  width: var(--feed-sidebar-width);
+  flex-shrink: 0;
+  margin-top: 36px;
+}
+
+@media (max-width: 1136px) {
+  .ig-right-sidebar {
+    display: none;
+  }
+}
+
+.ig-sidebar-user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.ig-sidebar-user-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ig-sidebar-username {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  color: rgb(var(--ig-primary-text));
+}
+
+.ig-sidebar-fullname {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(var(--ig-secondary-text));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ig-sidebar-action-link {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  color: rgb(var(--ig-colors-button-primary-link-text));
+  flex-shrink: 0;
+}
+
+.ig-sidebar-action-link:hover {
+  color: rgb(var(--ig-primary-text));
+}
+
+.ig-sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0 12px;
+  padding: 0 4px;
+}
+
+.ig-sidebar-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(var(--ig-secondary-text));
+}
+
+.ig-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ig-sidebar-footer {
+  margin-top: 28px;
+  padding: 0 4px;
+  font-size: 12px;
+  line-height: 18px;
+  color: rgb(var(--ig-tertiary-text));
+}
+
+/* ==================== POST CARD ==================== */
+.ig-post-card {
+  width: 100%;
+  border-bottom: 1px solid rgb(var(--ig-separator));
+  padding-bottom: 16px;
+}
+
+.ig-post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 4px 10px;
+}
+
+.ig-post-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ig-post-author-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  color: rgb(var(--ig-primary-text));
+}
+
+.ig-post-author-name:hover {
+  opacity: 0.75;
+}
+
+.ig-post-time {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(var(--ig-secondary-text));
+}
+
+.ig-post-location {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(var(--ig-secondary-text));
+}
+
+.ig-post-media-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid rgb(var(--ig-separator));
+  background-color: #000;
+  overflow: hidden;
+}
+
+.ig-post-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ig-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #1c1e21;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  z-index: 3;
+}
+
+.ig-carousel-btn-prev {
+  left: 10px;
+}
+
+.ig-carousel-btn-next {
+  right: 10px;
+}
+
+.ig-carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 3;
+}
+
+.ig-carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.45);
+  padding: 0;
+}
+
+.ig-carousel-dot.is-active {
+  background-color: rgb(var(--ig-primary-button));
+}
+
+.ig-post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding-top: 6px;
+}
+
+.ig-post-actions-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ig-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  color: rgb(var(--ig-primary-icon));
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+.ig-action-btn:hover {
+  opacity: 0.7;
+}
+
+.ig-action-btn:active {
+  transform: scale(0.92);
+}
+
+.ig-action-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(var(--ig-primary-text));
+}
+
+.ig-post-likes {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  margin-bottom: 6px;
+}
+
+.ig-post-caption {
+  font-size: 14px;
+  line-height: 18px;
+  word-break: break-word;
+}
+
+.ig-post-caption-user {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.ig-post-more-btn {
+  color: rgb(var(--ig-secondary-text));
+  margin-left: 4px;
+  font-size: 14px;
+}
+
+.ig-post-comments-trigger {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(var(--ig-secondary-text));
+  display: block;
+}
+
+/* ==================== EMPTY STATE ==================== */
+.ig-empty-card {
+  width: 100%;
+  max-width: 470px;
+  border: 1px solid rgb(var(--ig-separator));
+  border-radius: 12px;
+  padding: 40px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background-color: rgb(var(--ig-primary-background));
+}
+
+.ig-empty-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  margin: 0;
+}
+
+.ig-empty-subtitle {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(var(--ig-secondary-text));
+  margin: 0;
+  max-width: 340px;
+}
+
+/* ==================== BUTTONS ==================== */
+.ig-btn-primary {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background-color: rgb(var(--ig-primary-button));
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ig-btn-primary:hover:not(:disabled) {
+  background-color: rgb(var(--ig-primary-button-hover));
+}
+
+.ig-btn-primary:disabled {
+  background-color: rgb(var(--ig-colors-button-primary-background--disabled));
+  cursor: default;
+}
+
+.ig-btn-secondary {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background-color: rgb(var(--ig-colors-button-secondary-background));
+  color: rgb(var(--ig-colors-button-secondary-text));
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ig-btn-secondary:hover:not(:disabled) {
+  background-color: rgb(var(--ig-colors-button-secondary-background--hover));
+}
+
+/* ==================== MODALS ==================== */
+.ig-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--ig-modal-backdrop);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ig-modal-close-corner {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  z-index: 110;
+}
+
+.ig-create-modal {
+  width: 100%;
+  max-width: 681px;
+  height: min(724px, calc(100vh - 48px));
+  border-radius: 24px;
+  background-color: rgb(var(--ig-elevated-background));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--ig-strong-shadow);
+}
+
+.ig-create-modal.is-wide {
+  max-width: 960px;
+}
+
+.ig-create-header {
+  height: 43px;
+  flex-shrink: 0;
+  background-color: rgb(var(--ig-primary-background));
+  border-bottom: 1px solid rgb(var(--ig-separator));
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ig-create-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0;
+}
+
+.ig-create-header-action {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(var(--ig-colors-button-primary-link-text));
+}
+
+.ig-create-dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.ig-create-dropzone.is-dragging {
+  background-color: rgba(var(--ig-hover-overlay));
+}
+
+.ig-create-heading {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  margin: 0;
+}
+
+.ig-create-workspace {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.ig-create-preview-pane {
+  flex: 1;
+  background-color: #000;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ig-create-details-pane {
+  width: 340px;
+  flex-shrink: 0;
+  border-left: 1px solid rgb(var(--ig-separator));
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .ig-create-workspace {
+    flex-direction: column;
+  }
+
+  .ig-create-details-pane {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgb(var(--ig-separator));
+  }
+}
+
+/* ==================== POST DETAIL MODAL / PAGE ==================== */
+.ig-post-detail-box {
+  width: 100%;
+  max-width: 1297px;
+  height: min(852px, calc(100vh - 48px));
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: rgb(var(--ig-elevated-background));
+  border: 1px solid rgb(var(--ig-separator));
+}
+
+.ig-post-detail-media {
+  flex: 1;
+  min-width: 0;
+  background-color: #000000;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ig-post-detail-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.ig-post-detail-sidebar {
+  width: 445px;
+  min-width: 380px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(var(--ig-elevated-background));
+  border-left: 1px solid rgb(var(--ig-separator));
+}
+
+.ig-post-detail-header {
+  height: 60px;
+  flex-shrink: 0;
+  padding: 14px 16px;
+  background-color: rgb(var(--ig-primary-background));
+  border-bottom: 1px solid rgb(var(--ig-separator));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ig-post-detail-comments {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ig-comment-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ig-comment-body {
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.ig-post-detail-actions {
+  border-top: 1px solid rgb(var(--ig-separator));
+  padding: 6px 16px 10px;
+}
+
+.ig-comment-form {
+  border-top: 1px solid rgb(var(--ig-separator));
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+}
+
+.ig-comment-textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(var(--ig-primary-text));
+  max-height: 80px;
+}
+
+.ig-comment-post-btn {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(var(--ig-colors-button-primary-link-text));
+}
+
+.ig-comment-post-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .ig-post-detail-box {
+    flex-direction: column;
+    height: auto;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+
+  .ig-post-detail-media {
+    min-height: 320px;
+    max-height: 55vh;
+  }
+
+  .ig-post-detail-sidebar {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    border-left: none;
+    border-top: 1px solid rgb(var(--ig-separator));
+  }
+}
+
+/* ==================== PROFILE PAGE ==================== */
+.ig-profile-container {
+  width: 100%;
+  max-width: 1054px;
+  padding: 30px 20px 48px;
+}
+
+.ig-profile-header {
+  max-width: 680px;
+  margin: 0 auto 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ig-profile-top-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.ig-profile-avatar-lg {
+  width: 150px;
+  height: 150px;
+}
+
+.ig-profile-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ig-profile-username-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ig-profile-username {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  margin: 0;
+}
+
+.ig-profile-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.ig-profile-stat-num {
+  font-weight: 600;
+}
+
+.ig-profile-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ig-profile-btn {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 12px;
+  background-color: rgb(var(--ig-secondary-background));
+  color: rgb(var(--ig-colors-button-secondary-text));
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ig-profile-btn:hover {
+  background-color: rgb(var(--ig-colors-button-secondary-background--hover));
+}
+
+.ig-profile-btn.is-primary {
+  background-color: rgb(var(--ig-primary-button));
+  color: #ffffff;
+}
+
+.ig-profile-btn.is-primary:hover {
+  background-color: rgb(var(--ig-primary-button-hover));
+}
+
+.ig-profile-tabs {
+  height: 45px;
+  border-bottom: 1px solid rgb(var(--ig-tablist-border));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 4px;
+}
+
+.ig-profile-tab {
+  width: 64px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--ig-secondary-icon));
+  border-bottom: 2px solid transparent;
+}
+
+.ig-profile-tab.is-active {
+  color: rgb(var(--ig-primary-icon));
+  border-bottom-color: rgb(var(--ig-tab-underline-active));
+}
+
+.ig-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+}
+
+.ig-profile-tile {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background-color: rgb(var(--ig-secondary-background));
+  overflow: hidden;
+  display: block;
+}
+
+.ig-profile-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ig-profile-tile-carousel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ffffff;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+
+.ig-profile-tile-hover {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.ig-profile-tile:hover .ig-profile-tile-hover {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .ig-profile-container {
+    padding: 16px 0 48px;
+  }
+
+  .ig-profile-header {
+    padding: 0 16px;
+  }
+
+  .ig-profile-top-row {
+    gap: 20px;
+  }
+
+  .ig-profile-avatar-lg {
+    width: 77px;
+    height: 77px;
+  }
+
+  .ig-profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==================== FOLLOWERS MODAL ==================== */
+.ig-follow-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: min(788px, calc(100vh - 48px));
+  border-radius: 24px;
+  background-color: rgb(var(--ig-elevated-background));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ig-follow-modal-header {
+  height: 57px;
+  padding: 0 16px;
+  border-bottom: 1px solid rgb(var(--ig-elevated-separator));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ig-follow-search-wrap {
+  padding: 12px 16px;
+}
+
+.ig-follow-search {
+  width: 100%;
+  height: 36px;
+  border-radius: 25px;
+  background-color: rgb(var(--ig-secondary-background));
+  border: none;
+  outline: none;
+  padding: 8px 16px 8px 38px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.ig-follow-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ig-follow-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ==================== AUTH PAGES ==================== */
+.ig-auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background-color: rgb(var(--ig-primary-background));
+}
+
+.ig-auth-card {
+  width: 100%;
+  max-width: 350px;
+  border: 1px solid rgb(var(--ig-separator));
+  border-radius: 12px;
+  padding: 36px 40px 28px;
+  background-color: rgb(var(--ig-primary-background));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ig-auth-secondary-card {
+  width: 100%;
+  max-width: 350px;
+  margin-top: 10px;
+  border: 1px solid rgb(var(--ig-separator));
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.ig-auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.ig-floating-field {
+  position: relative;
+  width: 100%;
+  height: 38px;
+  border: 1px solid rgb(var(--ig-stroke));
+  border-radius: 3px;
+  background-color: rgb(var(--ig-secondary-background));
+}
+
+.ig-floating-field:focus-within {
+  border-color: rgb(var(--ig-focus-stroke));
+}
+
+.ig-floating-label {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: rgb(var(--ig-secondary-text));
+  pointer-events: none;
+  transition: transform 0.1s ease, font-size 0.1s ease, top 0.1s ease;
+}
+
+.ig-floating-field.has-value .ig-floating-label {
+  top: 7px;
+  transform: none;
+  font-size: 10px;
+}
+
+.ig-floating-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 14px 8px 2px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.ig-floating-field:not(.has-value) .ig-floating-input {
+  padding: 9px 8px;
+}
+
+.ig-auth-error {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgb(var(--ig-error-or-destructive));
+  text-align: center;
+}
+
+/* ==================== EDIT PROFILE ==================== */
+.ig-settings-layout {
+  width: 100%;
+  max-width: 1120px;
+  display: flex;
+  padding: 24px 20px 64px;
+  gap: 48px;
+}
+
+.ig-settings-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ig-settings-nav-item {
+  height: 48px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ig-settings-nav-item.is-active {
+  background-color: rgba(var(--ig-hover-overlay));
+  font-weight: 600;
+}
+
+.ig-settings-form-pane {
+  flex: 1;
+  max-width: 610px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ig-edit-avatar-card {
+  height: 88px;
+  padding: 16px;
+  border-radius: 20px;
+  background-color: rgb(var(--ig-highlight-background));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ig-edit-field-box {
+  width: 100%;
+  border: 1px solid rgb(var(--ig-tablist-border));
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: transparent;
+  font-size: 15px;
+  line-height: 20px;
+  outline: none;
+}
+
+.ig-edit-field-box:focus {
+  border-color: rgb(var(--ig-primary-text));
+}
+
+@media (max-width: 900px) {
+  .ig-settings-layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ig-settings-sidebar {
+    width: 100%;
+  }
+}
