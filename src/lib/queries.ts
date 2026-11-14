@@ -62,6 +62,7 @@ export interface PostDTO {
 export interface ProfileGridPostDTO {
   id: string;
   coverUrl: string;
+  coverMimeType?: string;
   mediaCount: number;
   likesCount: number;
   commentsCount: number;
@@ -525,6 +526,7 @@ export function getProfileGridPosts(userId: string): ProfileGridPostDTO[] {
         p.id,
         p.created_at,
         (SELECT pm.file_path FROM post_media pm WHERE pm.post_id = p.id ORDER BY pm.order_index ASC LIMIT 1) AS cover_path,
+        (SELECT pm.mime_type FROM post_media pm WHERE pm.post_id = p.id ORDER BY pm.order_index ASC LIMIT 1) AS cover_mime,
         (SELECT COUNT(*) FROM post_media pm WHERE pm.post_id = p.id) AS media_count,
         (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) AS likes_count,
         (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comments_count
@@ -536,6 +538,7 @@ export function getProfileGridPosts(userId: string): ProfileGridPostDTO[] {
       id: string;
       created_at: number;
       cover_path: string | null;
+      cover_mime: string | null;
       media_count: number;
       likes_count: number;
       comments_count: number;
@@ -546,6 +549,7 @@ export function getProfileGridPosts(userId: string): ProfileGridPostDTO[] {
     .map((r) => ({
       id: r.id,
       coverUrl: `/api/media/${r.cover_path}`,
+      coverMimeType: r.cover_mime || "image/jpeg",
       mediaCount: Number(r.media_count),
       likesCount: Number(r.likes_count),
       commentsCount: Number(r.comments_count),
@@ -561,6 +565,7 @@ export function getSavedGridPosts(userId: string): ProfileGridPostDTO[] {
         p.id,
         sp.created_at,
         (SELECT pm.file_path FROM post_media pm WHERE pm.post_id = p.id ORDER BY pm.order_index ASC LIMIT 1) AS cover_path,
+        (SELECT pm.mime_type FROM post_media pm WHERE pm.post_id = p.id ORDER BY pm.order_index ASC LIMIT 1) AS cover_mime,
         (SELECT COUNT(*) FROM post_media pm WHERE pm.post_id = p.id) AS media_count,
         (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) AS likes_count,
         (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comments_count
@@ -573,6 +578,7 @@ export function getSavedGridPosts(userId: string): ProfileGridPostDTO[] {
       id: string;
       created_at: number;
       cover_path: string | null;
+      cover_mime: string | null;
       media_count: number;
       likes_count: number;
       comments_count: number;
@@ -583,6 +589,7 @@ export function getSavedGridPosts(userId: string): ProfileGridPostDTO[] {
     .map((r) => ({
       id: r.id,
       coverUrl: `/api/media/${r.cover_path}`,
+      coverMimeType: r.cover_mime || "image/jpeg",
       mediaCount: Number(r.media_count),
       likesCount: Number(r.likes_count),
       commentsCount: Number(r.comments_count),

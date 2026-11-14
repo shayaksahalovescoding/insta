@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { CommentDTO, PostDTO } from "@/lib/queries";
 import { formatCount, formatRelativeTime } from "@/lib/time";
 import { Avatar } from "./Avatar";
+import { ShareToDmModal } from "./ShareToDmModal";
 import {
   BookmarkFilledIcon,
   BookmarkOutlineIcon,
@@ -44,6 +45,7 @@ export function PostDetailView({
   const [postingComment, setPostingComment] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const media = post.media;
   const activeMedia = media[slideIndex] ?? media[0];
@@ -120,7 +122,19 @@ export function PostDetailView({
   const content = (
     <article className="ig-post-detail-box">
       <div className="ig-post-detail-media">
-        {activeMedia && <img alt={post.caption || "Post media"} src={activeMedia.url} />}
+        {activeMedia &&
+          (activeMedia.mimeType.startsWith("video/") ? (
+            <video
+              controls
+              loop
+              playsInline
+              preload="metadata"
+              src={activeMedia.url}
+              style={{ width: "100%", height: "100%", objectFit: "contain", backgroundColor: "#000" }}
+            />
+          ) : (
+            <img alt={post.caption || "Post media"} src={activeMedia.url} />
+          ))}
         {media.length > 1 && slideIndex > 0 && (
           <button
             aria-label="Go back"
@@ -343,7 +357,7 @@ export function PostDetailView({
               <button
                 aria-label="Share"
                 className="ig-action-btn"
-                onClick={handleShare}
+                onClick={() => (viewerId ? setShareOpen(true) : handleShare())}
                 type="button"
               >
                 <ShareIcon size={24} />
@@ -419,6 +433,18 @@ export function PostDetailView({
     </article>
   );
 
+  const shareModal = shareOpen ? (
+    <ShareToDmModal
+      onClose={() => setShareOpen(false)}
+      postId={post.id}
+      postUrl={
+        typeof window !== "undefined"
+          ? `${window.location.origin}/p/${post.id}/`
+          : `/p/${post.id}/`
+      }
+    />
+  ) : null;
+
   if (!isModal) {
     return (
       <div
@@ -430,6 +456,7 @@ export function PostDetailView({
         }}
       >
         {content}
+        {shareModal}
       </div>
     );
   }
@@ -451,6 +478,7 @@ export function PostDetailView({
         <CloseIcon size={18} strokeWidth={3} />
       </button>
       {content}
+      {shareModal}
     </div>
   );
 }

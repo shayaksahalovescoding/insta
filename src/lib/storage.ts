@@ -2,12 +2,18 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
-const ALLOWED_MIME_EXTENSIONS: Record<string, string> = {
+const ALLOWED_IMAGE_EXTENSIONS: Record<string, string> = {
   "image/jpeg": ".jpg",
   "image/jpg": ".jpg",
   "image/png": ".png",
   "image/webp": ".webp",
   "image/gif": ".gif",
+};
+
+const ALLOWED_VIDEO_EXTENSIONS: Record<string, string> = {
+  "video/mp4": ".mp4",
+  "video/webm": ".webm",
+  "video/quicktime": ".mov",
 };
 
 const EXT_TO_MIME: Record<string, string> = {
@@ -16,9 +22,13 @@ const EXT_TO_MIME: Record<string, string> = {
   ".png": "image/png",
   ".webp": "image/webp",
   ".gif": "image/gif",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
+  ".mov": "video/quicktime",
 };
 
 export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+export const MAX_VIDEO_UPLOAD_BYTES = 50 * 1024 * 1024;
 export const MAX_POST_MEDIA_COUNT = 10;
 
 export function resolveUploadRoot(): string {
@@ -26,7 +36,7 @@ export function resolveUploadRoot(): string {
 }
 
 export function validateImageUpload(file: { type: string; size: number; name?: string }): string | null {
-  if (!ALLOWED_MIME_EXTENSIONS[file.type]) {
+  if (!ALLOWED_IMAGE_EXTENSIONS[file.type]) {
     return "Only JPEG, PNG, WebP, and GIF images are supported.";
   }
   if (file.size <= 0) {
@@ -34,6 +44,24 @@ export function validateImageUpload(file: { type: string; size: number; name?: s
   }
   if (file.size > MAX_UPLOAD_BYTES) {
     return "Image exceeds the 10 MB size limit.";
+  }
+  return null;
+}
+
+export function validateMediaUpload(file: { type: string; size: number; name?: string }): string | null {
+  const isImage = Boolean(ALLOWED_IMAGE_EXTENSIONS[file.type]);
+  const isVideo = Boolean(ALLOWED_VIDEO_EXTENSIONS[file.type]);
+  if (!isImage && !isVideo) {
+    return "Only JPEG, PNG, WebP, GIF images and MP4, WebM, MOV videos are supported.";
+  }
+  if (file.size <= 0) {
+    return "Uploaded file is empty.";
+  }
+  if (isImage && file.size > MAX_UPLOAD_BYTES) {
+    return "Image exceeds the 10 MB size limit.";
+  }
+  if (isVideo && file.size > MAX_VIDEO_UPLOAD_BYTES) {
+    return "Video exceeds the 50 MB size limit.";
   }
   return null;
 }
@@ -46,7 +74,29 @@ export async function saveUploadedImage(
   if (error) {
     throw new Error(error);
   }
-  const ext = ALLOWED_MIME_EXTENSIONS[file.type] || ".jpg";
+  return writeUploadedFile(folder, file, ALLOWED_IMAGE_EXTENSIONS[file.type] || ".jpg");
+}
+
+export async function saveUploadedMedia(
+  folder: string,
+  file: File
+): Promise<{ relativePath: string; mediaUrl: string; mimeType: string }> {
+  const error = validateMediaUpload(file);
+  if (error) {
+    throw new Error(error);
+  }
+  const ext =
+    ALLOWED_IMAGE_EXTENSIONS[file.type] ||
+    ALLOWED_VIDEO_EXTENSIONS[file.type] ||
+    ".bin";
+  return writeUploadedFile(folder, file, ext);
+}
+
+async function writeUploadedFile(
+  folder: string,
+  file: File,
+  ext: string
+): Promise<{ relativePath: string; mediaUrl: string; mimeType: string }> {
   const safeFolder = folder.replace(/[^a-zA-Z0-9_-]/g, "");
   if (!safeFolder) {
     throw new Error("Invalid upload folder.");

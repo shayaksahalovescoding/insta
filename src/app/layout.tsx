@@ -3,6 +3,7 @@ import React from "react";
 import { AppShell } from "@/components/AppShell";
 import { getCurrentUser } from "@/lib/auth";
 import { getUnreadNotificationsCount } from "@/lib/phase2-queries";
+import { getUnreadDmThreadsCount } from "@/lib/phase3-queries";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +22,9 @@ export default async function RootLayout({
   const unreadCount = currentUser
     ? getUnreadNotificationsCount(currentUser.id)
     : 0;
+  const unreadDmCount = currentUser
+    ? getUnreadDmThreadsCount(currentUser.id)
+    : 0;
   const themeClass =
     currentUser?.themePreference === "light" ? "__fb-light-mode" : "__fb-dark-mode";
 
@@ -29,6 +33,7 @@ export default async function RootLayout({
       <body>
         <AppShell
           currentUser={currentUser}
+          initialUnreadDmThreads={unreadDmCount}
           initialUnreadNotifications={unreadCount}
         >
           {children}

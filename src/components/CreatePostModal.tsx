@@ -55,19 +55,39 @@ export function CreatePostModal({
     if (!fileList || !fileList.length) return;
     setError(null);
     const chosen = Array.from(fileList).slice(0, 10);
-    const allowed = new Set(["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"]);
+    const allowedImages = new Set([
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+    ]);
+    const allowedVideos = new Set([
+      "video/mp4",
+      "video/webm",
+      "video/quicktime",
+    ]);
     for (const f of chosen) {
-      if (!allowed.has(f.type)) {
-        setError("Only JPEG, PNG, WebP, and GIF images are supported.");
+      const isImg = allowedImages.has(f.type);
+      const isVid = allowedVideos.has(f.type);
+      if (!isImg && !isVid) {
+        setError("Only JPEG, PNG, WebP, GIF images and MP4, WebM, MOV videos are supported.");
         return;
       }
-      if (f.size > 10 * 1024 * 1024) {
+      if (isImg && f.size > 10 * 1024 * 1024) {
         setError("Each image must be 10 MB or smaller.");
+        return;
+      }
+      if (isVid && f.size > 50 * 1024 * 1024) {
+        setError("Each video must be 50 MB or smaller.");
         return;
       }
     }
     files.forEach((f) => URL.revokeObjectURL(f.previewUrl));
     setFiles(chosen.map((file) => ({ file, previewUrl: URL.createObjectURL(file) })));
+    if (chosen.some((f) => allowedVideos.has(f.type))) {
+      setAspectRatio("original");
+    }
     setActiveIndex(0);
     setStep("crop");
   }
@@ -197,7 +217,7 @@ export function CreatePostModal({
             )}
             <input
               ref={inputRef}
-              accept="image/jpeg,image/png,image/webp,image/gif"
+              accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
               hidden
               id="create-post-files"
               multiple
@@ -226,17 +246,34 @@ export function CreatePostModal({
                   padding: 12,
                 }}
               >
-                <img
-                  alt={`Selected media ${activeIndex + 1}`}
-                  src={files[activeIndex]?.previewUrl}
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    aspectRatio: aspectCss,
-                    objectFit: aspectRatio === "original" ? "contain" : "cover",
-                    borderRadius: 4,
-                  }}
-                />
+                {files[activeIndex]?.file.type.startsWith("video/") ? (
+                  <video
+                    controls
+                    muted
+                    playsInline
+                    src={files[activeIndex]?.previewUrl}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      aspectRatio: aspectCss,
+                      objectFit: aspectRatio === "original" ? "contain" : "cover",
+                      borderRadius: 4,
+                      backgroundColor: "#000",
+                    }}
+                  />
+                ) : (
+                  <img
+                    alt={`Selected media ${activeIndex + 1}`}
+                    src={files[activeIndex]?.previewUrl}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      aspectRatio: aspectCss,
+                      objectFit: aspectRatio === "original" ? "contain" : "cover",
+                      borderRadius: 4,
+                    }}
+                  />
+                )}
               </div>
 
               {files.length > 1 && activeIndex > 0 && (

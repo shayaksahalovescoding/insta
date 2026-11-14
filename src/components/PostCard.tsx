@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { PostDTO } from "@/lib/queries";
 import { formatCount, formatRelativeTime } from "@/lib/time";
 import { Avatar } from "./Avatar";
+import { ShareToDmModal } from "./ShareToDmModal";
 import {
   BookmarkFilledIcon,
   BookmarkOutlineIcon,
@@ -35,6 +36,7 @@ export function PostCard({
   const [captionExpanded, setCaptionExpanded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const activeMedia = post.media[slideIndex] ?? post.media[0];
   const isOwner = viewerId === post.author.id;
@@ -172,13 +174,25 @@ export function PostCard({
         }}
         style={{ aspectRatio: aspectRatioCss }}
       >
-        {activeMedia && (
-          <img
-            alt={post.caption || `Post by ${post.author.username}`}
-            className="ig-post-media-img"
-            src={activeMedia.url}
-          />
-        )}
+        {activeMedia &&
+          (activeMedia.mimeType.startsWith("video/") ? (
+            <video
+              className="ig-post-media-img"
+              controls
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              src={activeMedia.url}
+              style={{ backgroundColor: "#000000" }}
+            />
+          ) : (
+            <img
+              alt={post.caption || `Post by ${post.author.username}`}
+              className="ig-post-media-img"
+              src={activeMedia.url}
+            />
+          ))}
 
         {post.media.length > 1 && slideIndex > 0 && (
           <button
@@ -250,7 +264,7 @@ export function PostCard({
           <button
             aria-label="Share"
             className="ig-action-btn"
-            onClick={handleShare}
+            onClick={() => setShareOpen(true)}
             type="button"
           >
             <ShareIcon size={24} />
@@ -307,6 +321,18 @@ export function PostCard({
         >
           View all {post.commentsCount} {post.commentsCount === 1 ? "comment" : "comments"}
         </button>
+      )}
+
+      {shareOpen && (
+        <ShareToDmModal
+          onClose={() => setShareOpen(false)}
+          postId={post.id}
+          postUrl={
+            typeof window !== "undefined"
+              ? `${window.location.origin}/p/${post.id}/`
+              : `/p/${post.id}/`
+          }
+        />
       )}
     </article>
   );

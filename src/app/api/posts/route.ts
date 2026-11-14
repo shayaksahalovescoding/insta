@@ -5,8 +5,8 @@ import { jsonError, jsonOk } from "@/lib/api-helpers";
 import { createPost } from "@/lib/queries";
 import {
   MAX_POST_MEDIA_COUNT,
-  saveUploadedImage,
-  validateImageUpload,
+  saveUploadedMedia,
+  validateMediaUpload,
 } from "@/lib/storage";
 
 export async function POST(req: NextRequest) {
@@ -21,14 +21,14 @@ export async function POST(req: NextRequest) {
     .filter((item): item is File => item instanceof File);
 
   if (!files.length) {
-    return jsonError("Please select at least one photo.", 400);
+    return jsonError("Please select at least one photo or video.", 400);
   }
   if (files.length > MAX_POST_MEDIA_COUNT) {
-    return jsonError(`You can upload up to ${MAX_POST_MEDIA_COUNT} photos per post.`, 400);
+    return jsonError(`You can upload up to ${MAX_POST_MEDIA_COUNT} items per post.`, 400);
   }
 
   for (const file of files) {
-    const err = validateImageUpload(file);
+    const err = validateMediaUpload(file);
     if (err) return jsonError(err, 400);
   }
 
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const savedMedia: Array<{ relativePath: string; mimeType: string }> = [];
 
   for (const file of files) {
-    const saved = await saveUploadedImage(`posts_${postId}`, file);
+    const saved = await saveUploadedMedia(`posts_${postId}`, file);
     savedMedia.push({ relativePath: saved.relativePath, mimeType: saved.mimeType });
   }
 

@@ -26,12 +26,14 @@ import {
 interface AppShellProps {
   currentUser: AuthUser | null;
   initialUnreadNotifications?: number;
+  initialUnreadDmThreads?: number;
   children: React.ReactNode;
 }
 
 export function AppShell({
   currentUser,
   initialUnreadNotifications = 0,
+  initialUnreadDmThreads = 0,
   children,
 }: AppShellProps) {
   const pathname = usePathname();
@@ -41,6 +43,9 @@ export function AppShell({
   const [unreadNotifications, setUnreadNotifications] = useState(
     initialUnreadNotifications
   );
+  const [unreadDmThreads, setUnreadDmThreads] = useState(
+    initialUnreadDmThreads
+  );
   const [createOpen, setCreateOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">(
     currentUser?.themePreference ?? "dark"
@@ -49,6 +54,28 @@ export function AppShell({
   useEffect(() => {
     setUnreadNotifications(initialUnreadNotifications);
   }, [initialUnreadNotifications, currentUser?.id]);
+
+  useEffect(() => {
+    setUnreadDmThreads(initialUnreadDmThreads);
+  }, [initialUnreadDmThreads, currentUser?.id]);
+
+  useEffect(() => {
+    function onDmUnread(e: Event) {
+      const detail = (e as CustomEvent<{ count: number }>).detail;
+      if (detail && typeof detail.count === "number") {
+        setUnreadDmThreads(detail.count);
+      }
+    }
+    function onOpenCreate() {
+      setCreateOpen(true);
+    }
+    window.addEventListener("ig:dm-unread", onDmUnread);
+    window.addEventListener("ig:open-create", onOpenCreate);
+    return () => {
+      window.removeEventListener("ig:dm-unread", onDmUnread);
+      window.removeEventListener("ig:open-create", onOpenCreate);
+    };
+  }, []);
 
   useEffect(() => {
     setTheme(currentUser?.themePreference ?? "dark");
@@ -96,9 +123,10 @@ export function AppShell({
   }
 
   const profileHref = `/${currentUser.username}/`;
+  const isDirectRoute = pathname.startsWith("/direct");
 
   return (
-    <div className="ig-shell">
+    <div className={`ig-shell ${isDirectRoute ? "is-direct-route" : ""}`}>
       {/* Mobile Top Header */}
       <header className="ig-mobile-header">
         <Link href="/">
@@ -158,8 +186,13 @@ export function AppShell({
                 className={`ig-rail-item ${pathname.startsWith("/direct") ? "is-active" : ""}`}
                 href="/direct/inbox/"
               >
-                <span className="ig-rail-icon">
+                <span className="ig-rail-icon" style={{ position: "relative" }}>
                   <MessagesIcon size={24} />
+                  {unreadDmThreads > 0 && (
+                    <span className="ig-rail-count-badge">
+                      {unreadDmThreads > 9 ? "9+" : unreadDmThreads}
+                    </span>
+                  )}
                 </span>
                 <span className="ig-rail-label">Messages</span>
               </Link>
@@ -311,7 +344,14 @@ export function AppShell({
           <CreatePostIcon size={24} />
         </button>
         <Link className="ig-mobile-tab" href="/direct/inbox/">
-          <MessagesIcon size={24} />
+          <span style={{ position: "relative", display: "inline-flex" }}>
+            <MessagesIcon size={24} />
+            {unreadDmThreads > 0 && (
+              <span className="ig-rail-count-badge">
+                {unreadDmThreads > 9 ? "9+" : unreadDmThreads}
+              </span>
+            )}
+          </span>
         </Link>
         <Link className="ig-mobile-tab" href={profileHref}>
           <Avatar

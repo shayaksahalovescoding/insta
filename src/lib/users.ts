@@ -214,3 +214,13 @@ export function setUserAvatarUrl(userId: string, avatarUrl: string | null): void
   const db = getDb();
   db.prepare("UPDATE users SET avatar_url = ? WHERE id = ?").run(avatarUrl, userId);
 }
+
+export function findUserByUsername(
+  username: string
+): { id: string; username: string } | null {
+  const db = getDb();
+  const row = db
+    .prepare("SELECT id, username FROM users WHERE username = ?")
+    .get(username) as { id: string; username: string } | undefined;
+  return row ?? null;
+}

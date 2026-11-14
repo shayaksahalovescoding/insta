@@ -139,6 +139,47 @@ function runMigrations(db: DatabaseSync): void {
 
     CREATE INDEX IF NOT EXISTS idx_notifications_recipient_created
       ON notifications(recipient_id, created_at DESC);
+
+    CREATE TABLE IF NOT EXISTS dm_threads (
+      id TEXT PRIMARY KEY,
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_dm_threads_updated ON dm_threads(updated_at DESC);
+
+    CREATE TABLE IF NOT EXISTS dm_participants (
+      thread_id TEXT NOT NULL REFERENCES dm_threads(id) ON DELETE CASCADE,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      last_read_at INTEGER NOT NULL DEFAULT 0,
+      muted INTEGER NOT NULL DEFAULT 0,
+      joined_at INTEGER NOT NULL,
+      PRIMARY KEY (thread_id, user_id)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_dm_participants_user ON dm_participants(user_id, thread_id);
+
+    CREATE TABLE IF NOT EXISTS dm_messages (
+      id TEXT PRIMARY KEY,
+      thread_id TEXT NOT NULL REFERENCES dm_threads(id) ON DELETE CASCADE,
+      sender_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      body TEXT NOT NULL DEFAULT '',
+      media_path TEXT,
+      media_mime TEXT,
+      shared_post_id TEXT REFERENCES posts(id) ON DELETE SET NULL,
+      created_at INTEGER NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_dm_messages_thread_created
+      ON dm_messages(thread_id, created_at ASC);
+
+    CREATE TABLE IF NOT EXISTS dm_reactions (
+      message_id TEXT NOT NULL REFERENCES dm_messages(id) ON DELETE CASCADE,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      emoji TEXT NOT NULL,
+      created_at INTEGER NOT NULL,
+      PRIMARY KEY (message_id, user_id)
+    );
   `);
 }
 

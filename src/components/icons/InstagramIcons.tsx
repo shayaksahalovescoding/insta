@@ -699,3 +699,268 @@ export function StoryNextIcon({ size = 24, className }: IconProps) {
     </svg>
   );
 }
+
+export function VolumeMutedIcon({ size = 12, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Audio is muted"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 48 48"
+      width={size}
+    >
+      <title>Audio is muted</title>
+      <path
+        clipRule="evenodd"
+        d="M1.5 13.3c-.8 0-1.5.7-1.5 1.5v18.4c0 .8.7 1.5 1.5 1.5h8.7l12.9 12.9c.9.9 2.5.3 2.5-1v-9.8c0-.4-.2-.8-.4-1.1l-22-22c-.3-.3-.7-.4-1.1-.4h-.6zm46.8 31.4-5.5-5.5C44.9 36.6 48 31.4 48 24c0-11.4-7.2-17.4-7.2-17.4-.6-.6-1.6-.6-2.2 0L37.2 8c-.6.6-.6 1.6 0 2.2 0 0 5.7 5 5.7 13.8 0 5.4-2.1 9.3-3.8 11.6L35.5 32c1.1-1.7 2.3-4.4 2.3-8 0-6.8-4.1-10.3-4.1-10.3-.6-.6-1.6-.6-2.2 0l-1.4 1.4c-.6.6-.6 1.6 0 2.2 0 0 2.6 2 2.6 6.7 0 1.8-.4 3.2-.9 4.3L25.5 22V1.4c0-1.3-1.6-1.9-2.5-1L13.5 10 3.3-.3c-.6-.6-1.5-.6-2.1 0L-.2 1.1c-.6.6-.6 1.5 0 2.1L4 7.6l26.8 26.8 13.9 13.9c.6.6 1.5.6 2.1 0l1.4-1.4c.7-.6.7-1.6.1-2.2z"
+        fillRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+export function VolumePlayingIcon({ size = 12, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Audio is playing"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Audio is playing</title>
+      <path d="M16.636 7.028a1.5 1.5 0 10-2.395 1.807 5.365 5.365 0 011.103 3.17 5.378 5.378 0 01-1.105 3.176 1.5 1.5 0 102.395 1.806 8.396 8.396 0 001.71-4.981 8.39 8.39 0 00-1.708-4.978zm3.73-2.332A1.5 1.5 0 1018.04 6.59 8.823 8.823 0 0120 12.007a8.798 8.798 0 01-1.96 5.415 1.5 1.5 0 002.326 1.894 11.672 11.672 0 002.635-7.31 11.682 11.682 0 00-2.635-7.31zm-8.963-3.613a1.001 1.001 0 00-1.082.187L5.265 6H2a1 1 0 00-1 1v10.003a1 1 0 001 1h3.265l5.01 4.682.02.021a1 1 0 001.704-.814L12.005 2a1 1 0 00-.602-.917z" />
+    </svg>
+  );
+}
+
+export function MusicNoteIcon({ size = 12, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Audio"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Audio</title>
+      <path d="M21.002 16.972V2.044a.999.999 0 0 0-.36-.769 1.012 1.012 0 0 0-.823-.214L6.816 3.479A1 1 0 0 0 6 4.462v10.864A3.75 3.75 0 1 0 9 19V9.56l9.003-1.675v5.442A3.75 3.75 0 1 0 21.005 17c0-.01-.003-.02-.003-.029Z" />
+    </svg>
+  );
+}
+
+export function ReelsArrowIcon({
+  direction = "down",
+  size = 24,
+  className,
+}: IconProps & { direction?: "up" | "down" }) {
+  return (
+    <svg
+      aria-label={direction === "up" ? "Previous reel" : "Next reel"}
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>{direction === "up" ? "Previous reel" : "Next reel"}</title>
+      {direction === "up" ? (
+        <path d="M21 17.502a.997.997 0 0 1-.707-.293L12 8.913l-8.293 8.296a1 1 0 1 1-1.414-1.414l9-9.004a1.03 1.03 0 0 1 1.414 0l9 9.004A1 1 0 0 1 21 17.502Z" />
+      ) : (
+        <path d="M12 17.502a1 1 0 0 1-.707-.293l-9-9.004a1 1 0 0 1 1.414-1.414L12 15.087l8.293-8.296a1 1 0 0 1 1.414 1.414l-9 9.004a1 1 0 0 1-.707.293Z" />
+      )}
+    </svg>
+  );
+}
+
+export function NewMessageIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      aria-label="New message"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>New message</title>
+      <path
+        d="M12.202 3.203H5.25a3 3 0 0 0-3 3V18.75a3 3 0 0 0 3 3h12.547a3 3 0 0 0 3-3v-6.952"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M10.002 17.226H6.774v-3.228L18.607 2.165a1.417 1.417 0 0 1 2.004 0l1.224 1.225a1.417 1.417 0 0 1 0 2.004Z"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <line
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        x1="16.848"
+        x2="20.076"
+        y1="3.924"
+        y2="7.153"
+      />
+    </svg>
+  );
+}
+
+export function DirectCircleIcon({ size = 96, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Your messages"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 96 96"
+      width={size}
+    >
+      <title>Your messages</title>
+      <circle
+        cx="48"
+        cy="48"
+        fill="none"
+        r="47"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="m52.309 67.221 17.024-28.643c2.25-3.784-.478-8.578-4.88-8.578H31.55c-5.084 0-7.605 6.169-3.976 9.73l10.574 10.376 3.762 15.55c1.197 4.947 7.798 5.94 10.399 1.565Z"
+        fill="none"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <line
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        x1="38.148"
+        x2="55.675"
+        y1="50.106"
+        y2="40.134"
+      />
+    </svg>
+  );
+}
+
+export function ConversationInfoIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Conversation information"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Conversation information</title>
+      <circle
+        cx="12.001"
+        cy="12.005"
+        fill="none"
+        r="10.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <circle cx="11.819" cy="7.709" r="1.25" />
+      <line
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        x1="10.569"
+        x2="13.432"
+        y1="16.777"
+        y2="16.777"
+      />
+      <polyline
+        fill="none"
+        points="10.569 11.05 12 11.05 12 16.777"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+export function AddMediaIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Add photo or video"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Add photo or video</title>
+      <path
+        d="M6.549 5.013A1.557 1.557 0 1 0 8.106 6.57a1.557 1.557 0 0 0-1.557-1.557Z"
+        fillRule="evenodd"
+      />
+      <path
+        d="m2 18.605 3.901-3.9a.908.908 0 0 1 1.284 0l2.807 2.806a.908.908 0 0 0 1.283 0l5.534-5.534a.908.908 0 0 1 1.283 0l3.905 3.905"
+        fill="none"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M18.44 2.004A3.56 3.56 0 0 1 22 5.564v12.873a3.56 3.56 0 0 1-3.56 3.56H5.568a3.56 3.56 0 0 1-3.56-3.56V5.563a3.56 3.56 0 0 1 3.56-3.56Z"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+export function SendPlaneIcon({ size = 18, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Send"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Send</title>
+      <path d="M22.513 3.576C21.826 2.552 20.617 2 19.384 2H4.621c-1.474 0-2.878.818-3.46 2.173-.6 1.398-.297 2.935.784 3.997l3.359 3.295a1 1 0 0 0 1.195.156l8.522-4.849a1 1 0 1 1 .988 1.738l-8.526 4.851a1 1 0 0 0-.477 1.104l1.218 5.038c.343 1.418 1.487 2.534 2.927 2.766.208.034.412.051.616.051 1.26 0 2.401-.644 3.066-1.763l7.796-13.118a3.572 3.572 0 0 0-.116-3.863Z" />
+    </svg>
+  );
+}

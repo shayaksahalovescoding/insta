@@ -17,6 +17,7 @@ import {
   CommentIcon,
   HeartFilledIcon,
   PostsGridTabIcon,
+  ReelsIcon,
   TaggedTabIcon,
 } from "./icons/InstagramIcons";
 import { PostDetailView } from "./PostDetailView";
@@ -58,6 +59,7 @@ export function ProfileClient({
         const gridItem: ProfileGridPostDTO = {
           id: created.id,
           coverUrl: created.media[0].url,
+          coverMimeType: created.media[0].mimeType,
           mediaCount: created.media.length,
           likesCount: created.likesCount,
           commentsCount: created.commentsCount,
@@ -171,7 +173,10 @@ export function ProfileClient({
               >
                 {profile.isFollowing ? "Following" : "Follow"}
               </button>
-              <Link className="ig-profile-btn" href="/direct/inbox/">
+              <Link
+                className="ig-profile-btn"
+                href={`/direct/inbox/?with=${encodeURIComponent(profile.username)}`}
+              >
                 Message
               </Link>
             </>
@@ -246,11 +251,27 @@ export function ProfileClient({
               onClick={() => handleOpenPost(tile.id)}
               type="button"
             >
-              <img alt="Post thumbnail" src={tile.coverUrl} />
-              {tile.mediaCount > 1 && (
+              {tile.coverMimeType?.startsWith("video/") ? (
+                <video
+                  muted
+                  playsInline
+                  preload="metadata"
+                  src={tile.coverUrl}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+              ) : (
+                <img alt="Post thumbnail" src={tile.coverUrl} />
+              )}
+              {tile.coverMimeType?.startsWith("video/") ? (
                 <span className="ig-profile-tile-carousel">
-                  <CarouselIndicatorIcon size={18} />
+                  <ReelsIcon size={18} />
                 </span>
+              ) : (
+                tile.mediaCount > 1 && (
+                  <span className="ig-profile-tile-carousel">
+                    <CarouselIndicatorIcon size={18} />
+                  </span>
+                )
               )}
               <div className="ig-profile-tile-hover">
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
