@@ -4,23 +4,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AuthUser } from "@/lib/auth";
+import { StoryGroupDTO } from "@/lib/phase2-queries";
 import { CommentDTO, PostDTO, UserSummary } from "@/lib/queries";
 import { Avatar } from "./Avatar";
 import { CreatePostModal } from "./CreatePostModal";
 import { CreatePostIcon } from "./icons/InstagramIcons";
 import { PostCard } from "./PostCard";
 import { PostDetailView } from "./PostDetailView";
+import { StoriesBar } from "./StoriesBar";
 
 interface HomeFeedClientProps {
   currentUser: AuthUser;
   initialPosts: PostDTO[];
   initialSuggested: UserSummary[];
+  initialStories: StoryGroupDTO[];
 }
 
 export function HomeFeedClient({
   currentUser,
   initialPosts,
   initialSuggested,
+  initialStories,
 }: HomeFeedClientProps) {
   const router = useRouter();
   const [posts, setPosts] = useState<PostDTO[]>(initialPosts);
@@ -80,6 +84,8 @@ export function HomeFeedClient({
   return (
     <div className="ig-feed-layout">
       <div className="ig-feed-column">
+        <StoriesBar currentUser={currentUser} initialGroups={initialStories} />
+
         {posts.length === 0 ? (
           <div className="ig-empty-card">
             <CreatePostIcon size={40} />

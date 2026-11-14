@@ -99,6 +99,46 @@ function runMigrations(db: DatabaseSync): void {
     );
 
     CREATE INDEX IF NOT EXISTS idx_follows_following ON follows(following_id);
+
+    CREATE TABLE IF NOT EXISTS stories (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      media_path TEXT NOT NULL,
+      mime_type TEXT NOT NULL,
+      caption TEXT NOT NULL DEFAULT '',
+      created_at INTEGER NOT NULL,
+      expires_at INTEGER NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_stories_user_expires ON stories(user_id, expires_at DESC);
+
+    CREATE TABLE IF NOT EXISTS story_views (
+      story_id TEXT NOT NULL REFERENCES stories(id) ON DELETE CASCADE,
+      viewer_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      viewed_at INTEGER NOT NULL,
+      PRIMARY KEY (story_id, viewer_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS story_likes (
+      story_id TEXT NOT NULL REFERENCES stories(id) ON DELETE CASCADE,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at INTEGER NOT NULL,
+      PRIMARY KEY (story_id, user_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS notifications (
+      id TEXT PRIMARY KEY,
+      recipient_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      actor_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      type TEXT NOT NULL CHECK (type IN ('like', 'comment', 'follow')),
+      post_id TEXT REFERENCES posts(id) ON DELETE CASCADE,
+      comment_text TEXT NOT NULL DEFAULT '',
+      is_read INTEGER NOT NULL DEFAULT 0,
+      created_at INTEGER NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_notifications_recipient_created
+      ON notifications(recipient_id, created_at DESC);
   `);
 }
 

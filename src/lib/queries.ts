@@ -292,8 +292,10 @@ export function toggleLike(
   userId: string
 ): { isLiked: boolean; likesCount: number } | null {
   const db = getDb();
-  const postExists = db.prepare("SELECT 1 FROM posts WHERE id = ?").get(postId);
-  if (!postExists) return null;
+  const postRow = db
+    .prepare("SELECT id, user_id FROM posts WHERE id = ?")
+    .get(postId) as { id: string; user_id: string } | undefined;
+  if (!postRow) return null;
 
   const existing = db
     .prepare("SELECT 1 FROM likes WHERE user_id = ? AND post_id = ?")
@@ -301,12 +303,22 @@ export function toggleLike(
 
   if (existing) {
     db.prepare("DELETE FROM likes WHERE user_id = ? AND post_id = ?").run(userId, postId);
+    db.prepare(
+      "DELETE FROM notifications WHERE actor_id = ? AND recipient_id = ? AND type = 'like' AND post_id = ?"
+    ).run(userId, postRow.user_id, postId);
   } else {
+    const now = Date.now();
     db.prepare("INSERT INTO likes (user_id, post_id, created_at) VALUES (?, ?, ?)").run(
       userId,
       postId,
-      Date.now()
+      now
     );
+    if (postRow.user_id !== userId) {
+      db.prepare(
+        `INSERT INTO notifications (id, recipient_id, actor_id, type, post_id, comment_text, is_read, created_at)
+         VALUES (?, ?, ?, 'like', ?, '', 0, ?)`
+      ).run(crypto.randomUUID(), postRow.user_id, userId, postId, now);
+    }
   }
 
   const countRow = db
@@ -381,8 +393,10 @@ export function listComments(postId: string): CommentDTO[] {
 
 export function createComment(postId: string, userId: string, content: string): CommentDTO | null {
   const db = getDb();
-  const postExists = db.prepare("SELECT 1 FROM posts WHERE id = ?").get(postId);
-  if (!postExists) return null;
+  const postRow = db
+    .prepare("SELECT id, user_id FROM posts WHERE id = ?")
+    .get(postId) as { id: string; user_id: string } | undefined;
+  if (!postRow) return null;
 
   const trimmed = content.trim();
   if (!trimmed) {
@@ -394,6 +408,13 @@ export function createComment(postId: string, userId: string, content: string): 
   db.prepare(
     "INSERT INTO comments (id, post_id, user_id, content, created_at) VALUES (?, ?, ?, ?, ?)"
   ).run(id, postId, userId, trimmed, now);
+
+  if (postRow.user_id !== userId) {
+    db.prepare(
+      `INSERT INTO notifications (id, recipient_id, actor_id, type, post_id, comment_text, is_read, created_at)
+       VALUES (?, ?, ?, 'comment', ?, ?, 0, ?)`
+    ).run(crypto.randomUUID(), postRow.user_id, userId, postId, trimmed.slice(0, 140), now);
+  }
 
   const row = db
     .prepare(
@@ -588,10 +609,18 @@ export function toggleFollow(
       followerId,
       target.id
     );
+    db.prepare(
+      "DELETE FROM notifications WHERE actor_id = ? AND recipient_id = ? AND type = 'follow'"
+    ).run(followerId, target.id);
   } else {
+    const now = Date.now();
     db.prepare(
       "INSERT INTO follows (follower_id, following_id, created_at) VALUES (?, ?, ?)"
-    ).run(followerId, target.id, Date.now());
+    ).run(followerId, target.id, now);
+    db.prepare(
+      `INSERT INTO notifications (id, recipient_id, actor_id, type, post_id, comment_text, is_read, created_at)
+       VALUES (?, ?, ?, 'follow', NULL, '', 0, ?)`
+    ).run(crypto.randomUUID(), target.id, followerId, now);
   }
 
   const countRow = db

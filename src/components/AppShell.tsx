@@ -7,6 +7,7 @@ import { AuthUser } from "@/lib/auth";
 import { PostDTO } from "@/lib/queries";
 import { Avatar } from "./Avatar";
 import { CreatePostModal } from "./CreatePostModal";
+import { NotificationsPanel } from "./NotificationsPanel";
 import {
   BookmarkOutlineIcon,
   CreatePostIcon,
@@ -24,17 +25,34 @@ import {
 
 interface AppShellProps {
   currentUser: AuthUser | null;
+  initialUnreadNotifications?: number;
   children: React.ReactNode;
 }
 
-export function AppShell({ currentUser, children }: AppShellProps) {
+export function AppShell({
+  currentUser,
+  initialUnreadNotifications = 0,
+  children,
+}: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [unreadNotifications, setUnreadNotifications] = useState(
+    initialUnreadNotifications
+  );
   const [createOpen, setCreateOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">(
     currentUser?.themePreference ?? "dark"
   );
+
+  useEffect(() => {
+    setUnreadNotifications(initialUnreadNotifications);
+  }, [initialUnreadNotifications, currentUser?.id]);
+
+  useEffect(() => {
+    setTheme(currentUser?.themePreference ?? "dark");
+  }, [currentUser?.id, currentUser?.themePreference]);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -44,6 +62,7 @@ export function AppShell({ currentUser, children }: AppShellProps) {
 
   useEffect(() => {
     setMoreOpen(false);
+    setNotificationsOpen(false);
   }, [pathname]);
 
   async function handleToggleTheme() {
@@ -93,8 +112,13 @@ export function AppShell({ currentUser, children }: AppShellProps) {
           >
             <ThemeMoonIcon size={22} />
           </button>
-          <Link aria-label="Notifications" href="/notifications/">
+          <Link
+            aria-label="Notifications"
+            href="/notifications/"
+            style={{ position: "relative", display: "inline-flex" }}
+          >
             <HeartOutlineIcon size={24} title="Notifications" />
+            {unreadNotifications > 0 && <span className="ig-rail-badge" />}
           </Link>
         </div>
       </header>
@@ -150,15 +174,17 @@ export function AppShell({ currentUser, children }: AppShellProps) {
                 <span className="ig-rail-label">Search</span>
               </Link>
 
-              <Link
-                className={`ig-rail-item ${pathname.startsWith("/notifications") ? "is-active" : ""}`}
-                href="/notifications/"
+              <button
+                className={`ig-rail-item ${notificationsOpen || pathname.startsWith("/notifications") ? "is-active" : ""}`}
+                onClick={() => setNotificationsOpen((o) => !o)}
+                type="button"
               >
-                <span className="ig-rail-icon">
+                <span className="ig-rail-icon" style={{ position: "relative" }}>
                   <HeartOutlineIcon size={24} title="Notifications" />
+                  {unreadNotifications > 0 && <span className="ig-rail-badge" />}
                 </span>
                 <span className="ig-rail-label">Notifications</span>
-              </Link>
+              </button>
 
               <button
                 className="ig-rail-item"
@@ -244,6 +270,20 @@ export function AppShell({ currentUser, children }: AppShellProps) {
                 <span>Log out</span>
               </button>
             </div>
+          </>
+        )}
+
+        {notificationsOpen && (
+          <>
+            <div
+              onClick={() => setNotificationsOpen(false)}
+              style={{ position: "fixed", inset: 0, zIndex: 40 }}
+            />
+            <NotificationsPanel
+              isDrawer
+              onClose={() => setNotificationsOpen(false)}
+              onMarkedRead={() => setUnreadNotifications(0)}
+            />
           </>
         )}
       </div>

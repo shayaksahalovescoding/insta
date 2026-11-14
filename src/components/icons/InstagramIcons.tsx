@@ -607,3 +607,95 @@ export function ChevronIcon({
     </svg>
   );
 }
+
+export function BackArrowIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Back"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Back</title>
+      <polyline
+        fill="none"
+        points="16.502 3 7.498 12 16.502 21"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+export function PauseIcon({ size = 16, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Pause"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 48 48"
+      width={size}
+    >
+      <title>Pause</title>
+      <path d="M15 1c-3.3 0-6 1.3-6 3v40c0 1.7 2.7 3 6 3s6-1.3 6-3V4c0-1.7-2.7-3-6-3zm18 0c-3.3 0-6 1.3-6 3v40c0 1.7 2.7 3 6 3s6-1.3 6-3V4c0-1.7-2.7-3-6-3z" />
+    </svg>
+  );
+}
+
+export function PlayIcon({ size = 16, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Play"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Play</title>
+      <path d="M6.986 22.073a3.97 3.97 0 0 1-1.99-.54 3.938 3.938 0 0 1-1.99-3.445V5.912a3.94 3.94 0 0 1 1.99-3.445 3.937 3.937 0 0 1 3.98-.001L19.52 8.554c1.246.72 1.99 2.008 1.99 3.446s-.744 2.727-1.99 3.446L8.976 21.534a3.97 3.97 0 0 1-1.99.54Z" />
+    </svg>
+  );
+}
+
+export function StoryPrevIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Previous"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Previous</title>
+      <path d="M12.005.503a11.5 11.5 0 1 0 11.5 11.5 11.513 11.513 0 0 0-11.5-11.5Zm2.207 15.294a1 1 0 1 1-1.416 1.412l-4.5-4.51a1 1 0 0 1 .002-1.415l4.5-4.489a1 1 0 0 1 1.412 1.416l-3.792 3.783Z" />
+    </svg>
+  );
+}
+
+export function StoryNextIcon({ size = 24, className }: IconProps) {
+  return (
+    <svg
+      aria-label="Next"
+      className={className}
+      fill="currentColor"
+      height={size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      <title>Next</title>
+      <path d="M12.005.503a11.5 11.5 0 1 0 11.5 11.5 11.513 11.513 0 0 0-11.5-11.5Zm3.707 12.22-4.5 4.488A1 1 0 0 1 9.8 15.795l3.792-3.783L9.798 8.21a1 1 0 1 1 1.416-1.412l4.5 4.511a1 1 0 0 1-.002 1.414Z" />
+    </svg>
+  );
+}
